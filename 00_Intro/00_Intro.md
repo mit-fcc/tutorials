@@ -1,16 +1,22 @@
-# Introduction to Computing for High Energy Physics, at MIT
+# Introduction to Computing for High Energy Physics (at MIT)
 
-An introduction to the basic tools and software you will need for doing research in High Energy Physics (HEP). Some of this is MIT-specific, as we rely on our in-house cluster, subMIT. Please go through all the *Exercises* to make sure you are read to use all the tools you need to do physics!
+An introduction to the basic tools and software you will need for doing research in High Energy Physics (HEP). Some of this is MIT-specific, as we rely on our in-house cluster, subMIT. Please go through all the *Exercises* to make sure you are ready to use all the tools you need to do physics!
+
+For this setup and doing physics, you need to use the command line. You access it via an application that is called "Terminal" and is most certainly pre-installed on your computer. Open it and you're good to go!
 
 ## Setting up your access to the subMIT cluster
 
-We use the subMIT cluster to run our code. To access the cluster, follow the steps outlined in the ["Getting started" section](https://submit.mit.edu/submit-users-guide/starting.html) of the [subMIT User's Guide](https://submit.mit.edu/submit-users-guide/index.html).
+We typically do not run our code on laptops or other local machines. Instead, we use the subMIT cluster. To access the cluster, follow the steps outlined in the ["Getting started" section](https://submit.mit.edu/submit-users-guide/starting.html) of the [subMIT User's Guide](https://submit.mit.edu/submit-users-guide/index.html).
 
-You can now access the subMIT cluster using the terminal.
-
+You can now access the subMIT cluster using this command in the terminal:
 ```sh
 ssh <your_username>@submit.mit.edu
 ```
+If you see this at the beginning of your line
+```sh
+[<your_username>@submit{a number} ~]$
+```
+you're good to go and successfully logged in!
 
 You will do your work here from now on, rather than on your laptop (unless your laptop has 100 cores and TBs of memory).
 
@@ -51,7 +57,7 @@ You can also access subMIT via JupyterHub, which provides a web-based interface 
 
 ## VS Code
 
-We suggest to use Visual Studio Code (VS Code) as a text editor. It is a powerful and user-friendly editor that is widely used in the scientific community. You can download it [here](https://code.visualstudio.com/).
+We suggest to use Visual Studio Code (VS Code) as a text editor. It is a powerful and user-friendly editor that is widely used in the scientific community. You can download it [here](https://code.visualstudio.com/). It also has a built in command line, so that you can easily use your code all in one application. You may also do all the following steps there if you wish.
 
 > *Exercise:* Set up VS Code on the subMIT cluster; instructions can be found on the [subMIT User's Guide](https://submit.mit.edu/submit-users-guide/access.html#vscode).
 
@@ -59,17 +65,24 @@ We suggest to use Visual Studio Code (VS Code) as a text editor. It is a powerfu
 
 Python is a high-level programming language that is widely used in scientific computing. It is known for its readability and ease of use. We will use (mostly) Python to write our code.
 
-Two important things:
-1. Various versions of Python exist. A basic one is already installed on the subMIT cluster, which we will use for now. Later, we will use the one determined by the FCC-ee software. Different versions can be installed, for example, with`conda`, a package manager for Python.
-2. Python works with packages, which are downloadable libraries that extend the functionality of Python. These can be installed with `pip`, the Python package installer, or with `conda`, a package manager for Python.
+Some important notes:
+1. The Python programming language is constantly  developped resulting in different versions. The subMIT cluster comes with a pre-installed version of python. This may not be the case on other computing systems.
+2. There are many computing tasks which are useful in many different contexts. For example reading input, matrix multiplications, or plotting. We don't need to implement them all from scratch but can use packages (which are typically very efficient and have some built-in sanity checks).
+3. The two most commonly used tools to install packages are:
+   * [Conda](https://anaconda.org/anaconda/conda): This is a system package manager. It can be used to install python itself (as well as other tools, apps, or programming languages) and python packages.
+   * [Pip](https://pypi.org/project/pip/): This is a python-specific package manager.
+   Both of them are pre-installed on the subMIT cluster.
+4. Not all packages are compatible with all python versions. In order to avoid conflicts when you need different packages for different projects for example, it is **very strongly** adviced to **ALWAYS** install packages within a virtual environment. Then you can easily turn different versions and combinations of packages on or off depending on your needs.
 
-> *Exercise*: A very simple tutorial for Python can be found in the [subMIT User's Guide](https://submit.mit.edu/submit-users-guide/tutorials/tutorial_1.html). A more in-depth tutorial for python for HEP is provided by the LHCb collaboration [here](https://hsf-training.github.io/analysis-essentials/python/README.html). If you've never worked with Python, go through these tutorials.
+Creating environments and installing packages is beyond the scope of this tutorial. In order to use the FCC-ee software, we use a pre-compiled environment that includes all package you will need for this tutorial.
+
+> *Exercise*: A very simple tutorial for Python can be found in the [subMIT User's Guide](https://submit.mit.edu/submit-users-guide/tutorials/tutorial_1.html). A more in-depth tutorial for python for HEP is provided by the HSF collaboration [here](https://hsf-training.github.io/analysis-essentials/python/README.html). If you've never worked with Python, go through these tutorials.
 
 ## Git
 
-Git is a version control system that allows you to track changes in your code. It is widely used in the scientific community and is essential for collaborative work. We will use Git to manage our code. In particular, we will use GitHub, a platform that hosts Git repositories.
+Git is a version control system that allows you to track changes in your code as well. It is widely used in the scientific community and is essential for collaborative work. We will use Git to manage our code. In particular, we will use GitHub, a platform that hosts Git repositories.
 
-> *Exercise*: Make a GitHub account. Setup your GitHub keys on subMIT. Fork this repository (https://github.com/mit-fcc/tutorials). Navigate to the directory you created earlier, `fcc-ee`, and clone the repository in there. Edit the README file by adding your name and the project you are working on, and push the changes to your fork. Navigate to the repository on GitHub's website and check that the changes are there.
+> *Exercise*: Create a GitHub account. Setup your GitHub keys on subMIT. Fork this repository (https://github.com/mit-fcc/tutorials). Navigate to the directory you created earlier, `fcc-ee`, and clone the repository. Edit the README file by adding your name and the project you are working on, and push the changes to your fork. Navigate to the repository on GitHub's website and check that the changes are there. You will need the following commands for this: `git clone`, `git add`, `git commit`, and `git push` and you can have detailed introduction on the HSF websites [here](https://hsf-training.github.io/analysis-essentials/git/README.html).
 
 ## Personal Website on subMIT
 
@@ -91,7 +104,17 @@ The FCC collaboration has put together a common framework for analyses. You can 
 
     which python
 
-> This should return the path to the python executable that is part of the FCCAnalyses software. Something like `/cvmfs/sw.hsf.org/key4hep/releases/2024-03-10/x86_64-almalinux9-gcc11.3.1-opt/python/3.10.13-od343s/bin/python`. If it does, you are good to go.
+> This should return the path to the python executable that is part of the FCCAnalyses software. You can test this by executing for example
+```sh
+    /cvmfs/sw.hsf.org/key4hep/releases/2024-03-10/x86_64-almalinux9-gcc11.3.1-opt/python/3.10.13-od343s/bin/python
+```
+This opens an interactive python shell. If your output looks like this (or very similar)
+```sh
+    Python 3.10.13 (main, Mar 10 2024, 08:56:38) [GCC 11.3.1 20221121 (Red Hat 11.3.1-4)] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> 
+```
+you're good to go! You can exit by typing `exit()` or `CTRL-D`.
 
 ## Conclusion
 
